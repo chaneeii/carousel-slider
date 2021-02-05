@@ -161,6 +161,14 @@ function Slider({slides, autoPlay}: Props) {
         })
     }
 
+    const handleClick = (index : number) => {
+        setState({
+            ...state,
+            activeSlide: index,
+            translate: index * getWidth()
+        })
+    }
+
 
     return (
         <S.Slider>
@@ -175,12 +183,12 @@ function Slider({slides, autoPlay}: Props) {
             </SliderContent>
 
 
-            {/*좌우이동 화살표 및 함수 추가*/}
+            {/* 좌우이동 화살표 및 함수 추가 */}
             <Arrow direction="left" handleClick={prevSlide} />
             <Arrow direction="right" handleClick={nextSlide} />
 
             {/*Dots*/}
-            <Dots slides={slides} activeSlide={activeSlide} />
+            <Dots slides={slides} activeSlide={activeSlide} handleClick={handleClick} />
 
         </S.Slider>
 

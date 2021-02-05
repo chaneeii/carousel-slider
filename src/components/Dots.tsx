@@ -24,24 +24,25 @@ const S = {
 interface Props {
     slides: string[];
     activeSlide: number;
+    handleClick: (index: number) => void;
 }
 
-interface DotProps {
-    active: boolean;
-}
+// interface DotProps {
+//     active: boolean;
+// }
 
-function Dot ( {active} : DotProps) {
-    return(
-        <><S.SingleDot active={active}/></>
-    )
-}
+// function Dot ( {active} : DotProps) {
+//     return(
+//         <><S.SingleDot active={active}/></>
+//     )
+// }
 
 
-function Arrow({slides, activeSlide}: Props) {
+function Arrow({slides, activeSlide, handleClick}: Props) {
     return(
         <S.DotsContainer>
             {slides.map((slide, i) => (
-                <Dot key={slide} active={activeSlide === i} />
+                <S.SingleDot key={slide} active={activeSlide === i } onClick={() => handleClick(i)} />
             ))}
         </S.DotsContainer>
     )
