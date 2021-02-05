@@ -13,10 +13,9 @@ const SlideContainer = styled.div<{content: string}>`
 
 interface Props {
     content: string;
-    key: string;
 }
 
-function Slide({key, content} : Props) {
+function Slide({content} : Props) {
     return(
         <SlideContainer content={content}/>
     )

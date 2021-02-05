@@ -39,7 +39,7 @@ interface Props {
 
 function Arrow({ direction, handleClick }: Props) {
     return(
-        <S.ArrowContainer direction={direction} >
+        <S.ArrowContainer onClick={handleClick} direction={direction} >
             {direction === 'right' ? <img src={rightArrow} /> : <img src={leftArrow} />}
         </S.ArrowContainer>
     )

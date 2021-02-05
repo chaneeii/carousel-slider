@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import SliderContent from "./SliderContent";
 import Slide from './Slide'
 import Arrow from "./Arrow";
-import rightArrow from "../img/right-arrow.svg";
+import Dots from './Dots'
+
 
 const S = {
     // 나중에 높이 넓이 프롭스로 받아 처리하기
@@ -82,11 +83,12 @@ function Slider({slides}: Props) {
             </SliderContent>
 
 
-
-
             {/*좌우이동 화살표 및 함수 추가*/}
             <Arrow direction="left" handleClick={prevSlide} />
             <Arrow direction="right" handleClick={nextSlide} />
+
+            {/*Dots*/}
+            <Dots slides={slides} activeIndex={activeIndex} />
 
         </S.Slider>
 
