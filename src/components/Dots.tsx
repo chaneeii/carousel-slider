@@ -23,7 +23,7 @@ const S = {
 
 interface Props {
     slides: string[];
-    activeIndex: number;
+    activeSlide: number;
 }
 
 interface DotProps {
@@ -37,11 +37,11 @@ function Dot ( {active} : DotProps) {
 }
 
 
-function Arrow({slides, activeIndex}: Props) {
+function Arrow({slides, activeSlide}: Props) {
     return(
         <S.DotsContainer>
             {slides.map((slide, i) => (
-                <Dot key={slide} active={activeIndex === i} />
+                <Dot key={slide} active={activeSlide === i} />
             ))}
         </S.DotsContainer>
     )

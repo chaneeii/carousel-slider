@@ -32,12 +32,12 @@ function Slider({slides, autoPlay}: Props) {
     const getWidth = () => window.innerWidth
 
     const [state, setState] = useState({
-        activeIndex: 0,
+        activeSlide: 0,
         translate: 0,
         transition: 0.45
     })
 
-    const { translate, transition, activeIndex } = state
+    const { translate, transition, activeSlide } = state
 
     const autoPlayRef = useRef<() => void>(() => {})
 
@@ -56,34 +56,34 @@ function Slider({slides, autoPlay}: Props) {
 
 
     const nextSlide = () => {
-        if (activeIndex === slides.length - 1) {
+        if (activeSlide === slides.length - 1) {
             return setState({
                 ...state,
                 translate: 0,
-                activeIndex: 0
+                activeSlide: 0
             })
         }
 
         setState({
             ...state,
-            activeIndex: activeIndex + 1,
-            translate: (activeIndex + 1) * getWidth()
+            activeSlide: activeSlide + 1,
+            translate: (activeSlide + 1) * getWidth()
         })
     }
 
     const prevSlide = () => {
-        if (activeIndex === 0) {
+        if (activeSlide === 0) {
             return setState({
                 ...state,
                 translate: (slides.length - 1) * getWidth(),
-                activeIndex: slides.length - 1
+                activeSlide: slides.length - 1
             })
         }
 
         setState({
             ...state,
-            activeIndex: activeIndex - 1,
-            translate: (activeIndex - 1) * getWidth()
+            activeSlide: activeSlide - 1,
+            translate: (activeSlide - 1) * getWidth()
         })
     }
 
@@ -106,7 +106,7 @@ function Slider({slides, autoPlay}: Props) {
             <Arrow direction="right" handleClick={nextSlide} />
 
             {/*Dots*/}
-            <Dots slides={slides} activeIndex={activeIndex} />
+            <Dots slides={slides} activeSlide={activeSlide} />
 
         </S.Slider>
 
