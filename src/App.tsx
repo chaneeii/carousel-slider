@@ -13,7 +13,7 @@ function App() {
 
     return (
         <>
-            <Slider slides={images} autoPlay={3.5} />
+            <Slider slides={images} autoPlay={4} />
         </>
     );
 }

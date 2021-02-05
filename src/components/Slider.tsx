@@ -38,7 +38,7 @@ function Slider({slides, autoPlay}: Props) {
     const [state, setState] = useState({
         activeSlide: 0,
         translate: 0,
-        transition: 0.45,
+        transition: 0.25,
         _slides: [lastSlide, firstSlide, secondSlide]
     })
 
@@ -184,8 +184,8 @@ function Slider({slides, autoPlay}: Props) {
 
 
             {/* 좌우이동 화살표 및 함수 추가 */}
-            <Arrow direction="left" handleClick={prevSlide} />
-            <Arrow direction="right" handleClick={nextSlide} />
+            {/*<Arrow direction="left" handleClick={prevSlide} />*/}
+            {/*<Arrow direction="right" handleClick={nextSlide} />*/}
 
             {/*Dots*/}
             <Dots slides={slides} activeSlide={activeSlide} handleClick={handleClick} />
