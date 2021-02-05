@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components';
 import SliderContent from "./SliderContent";
 import Slide from './Slide'
@@ -21,10 +21,12 @@ const S = {
 }
 
 interface Props {
-    slides: string[]
+    slides: string[];
+    autoPlay: number;
 }
 
-function Slider({slides}: Props) {
+
+function Slider({slides, autoPlay}: Props) {
 
     /* 이미지 넓이 : 현재는 전체화면이라 윈도우 전체넓이 인듯? 나중에 props로 처리해야할듯함  */
     const getWidth = () => window.innerWidth
@@ -36,6 +38,22 @@ function Slider({slides}: Props) {
     })
 
     const { translate, transition, activeIndex } = state
+
+    const autoPlayRef = useRef<() => void>(() => {})
+
+    useEffect(()  => {
+        autoPlayRef.current = nextSlide
+    })
+
+    useEffect(() => {
+        const play = () => {
+            autoPlayRef.current()
+        }
+        const interval = setInterval(play, autoPlay * 1000)
+        return () => clearInterval(interval)
+    }, [])
+
+
 
     const nextSlide = () => {
         if (activeIndex === slides.length - 1) {
