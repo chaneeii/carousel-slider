@@ -44,6 +44,7 @@ function Arrow({slides, activeSlide, handleClick}: Props) {
             {slides.map((slide, i) => (
                 <S.SingleDot key={slide} active={activeSlide === i } onClick={() => handleClick(i)} />
             ))}
+
         </S.DotsContainer>
     )
 }
