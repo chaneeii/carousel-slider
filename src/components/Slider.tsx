@@ -37,7 +37,7 @@ function Slider({slides, autoPlay}: Props) {
 
     const [state, setState] = useState({
         activeSlide: 0,
-        translate: 0,
+        translate: getWidth(),
         transition: 0.25,
         _slides: [lastSlide, firstSlide, secondSlide]
     })
@@ -56,11 +56,6 @@ function Slider({slides, autoPlay}: Props) {
     })
 
 
-
-    useEffect(() => {
-        autoPlayRef.current = nextSlide
-        transitionRef.current = smoothTransition
-    })
 
     useEffect(() => {
 
