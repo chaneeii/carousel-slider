@@ -22,10 +22,11 @@ const S = {
 interface Props {
     slides: string[];
     autoPlay: number;
+    infiniteLoop: boolean;
 }
 
 
-function Slider({slides, autoPlay}: Props) {
+function Slider({slides, autoPlay, infiniteLoop}: Props) {
 
     /* 이미지 넓이 : 현재는 전체화면이라 윈도우 전체넓이 인듯? 나중에 props로 처리해야할듯함  */
     const getWidth = () => window.innerWidth
@@ -33,31 +34,53 @@ function Slider({slides, autoPlay}: Props) {
     const [state, setState] = useState({
         activeSlide: 0,
         translate: 0,
-        transition: 0.45
+        transition: 0.45,
+        autoPlaySpeed: autoPlay
     })
 
     /* Swipe - touch for mobile devices */
     // const [touchPosition, setTouchPosition] = useState(null)
-
     const [touchPosition, setTouchPosition] = useState(0)
 
 
-    const { translate, transition, activeSlide } = state
+    const fakeLastSlide = [slides[0]];
+    const fakeSlide = slides.concat(fakeLastSlide);
+    const [lastSlide, setLastSlide] = useState(false);
 
 
+    const { translate, transition, activeSlide} = state
+
+
+    // const autoPlayRef = useRef<() => void>(() => {})
     const autoPlayRef = useRef<() => void>(() => {})
+    const resizeRef = useRef<() => void>(() => {})
+
 
     useEffect(()  => {
         autoPlayRef.current = nextSlide
+        resizeRef.current = handleResize
     })
 
     useEffect(() => {
+
         const play = () => {
             autoPlayRef.current()
         }
-        const interval = setInterval(play, autoPlay * 1000)
-        return () => clearInterval(interval)
-    }, [])
+        const resize = () => {
+            resizeRef.current()
+        }
+
+        window.addEventListener('resize', resize)
+        const interval = setInterval(play, state.autoPlaySpeed * 1000)
+
+        return () => {
+            window.removeEventListener('resize', resize)
+            if (autoPlay) {
+                clearInterval(interval)
+            }
+        }
+
+    }, [state])
 
 
 
@@ -90,22 +113,41 @@ function Slider({slides, autoPlay}: Props) {
         setTouchPosition(0)
     }
 
-
+    const handleResize = () => {
+        setState({ ...state, translate: getWidth(), transition: 0 })
+    }
 
     const nextSlide = () => {
         if (activeSlide === slides.length - 1) {
             return setState({
                 ...state,
+                activeSlide: activeSlide + 1,
+                translate: (activeSlide + 1) * getWidth(),
+                // transition: 0.45,
+                transition: 0.6,
+                autoPlaySpeed: 0.28
+            })
+
+        }
+
+        if(activeSlide === fakeSlide.length - 1) {
+            return setState({
+                ...state,
+                activeSlide: 0,
                 translate: 0,
-                activeSlide: 0
+                transition: 0,
+                autoPlaySpeed: autoPlay
             })
         }
 
         setState({
             ...state,
             activeSlide: activeSlide + 1,
-            translate: (activeSlide + 1) * getWidth()
+            translate: (activeSlide + 1) * getWidth(),
+            transition: 0.45
         })
+
+
     }
 
     const prevSlide = () => {
@@ -134,18 +176,21 @@ function Slider({slides, autoPlay}: Props) {
     }
 
 
+
+
     return (
         <S.Slider>
             <SliderContent
                 translate={translate}
                 transition={transition}
-                width={getWidth() * slides.length}
+                width={getWidth() * fakeSlide.length}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
             >
-                {slides.map((slide, i) => (
+                {fakeSlide.map((slide, i) => (
                     <Slide key={slide + i} content={slide} />
                 ))}
+
             </SliderContent>
 
 
