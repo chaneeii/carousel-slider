@@ -15,6 +15,7 @@ const S = {
       width: 100vw;
       margin: 0 auto;
       overflow: hidden;
+      
     `
 
 
@@ -37,7 +38,13 @@ function Slider({slides, autoPlay}: Props) {
         transition: 0.45
     })
 
+    /* Swipe - touch for mobile devices */
+    // const [touchPosition, setTouchPosition] = useState(null)
+    const [touchPosition, setTouchPosition] = useState(0)
+
+
     const { translate, transition, activeSlide } = state
+
 
     const autoPlayRef = useRef<() => void>(() => {})
 
@@ -52,6 +59,39 @@ function Slider({slides, autoPlay}: Props) {
         const interval = setInterval(play, autoPlay * 1000)
         return () => clearInterval(interval)
     }, [])
+
+
+
+    /* touch event handler*/
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        const touchDown = e.touches[0].clientX
+        setTouchPosition(touchDown)
+    }
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        const touchDown = touchPosition
+
+        if(touchDown === null) {
+            return
+        }
+
+        const currentTouch = e.touches[0].clientX
+        const diff = touchDown - currentTouch
+
+        if (diff > 5) {
+            nextSlide()
+        }
+
+        if (diff < -5) {
+            prevSlide()
+        }
+
+        // setTouchPosition(null)
+        setTouchPosition(0)
+    }
+
+
 
 
 
@@ -103,6 +143,8 @@ function Slider({slides, autoPlay}: Props) {
                 translate={translate}
                 transition={transition}
                 width={getWidth() * slides.length}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
             >
                 {slides.map((slide, i) => (
                     <Slide key={slide + i} content={slide} />
@@ -111,8 +153,8 @@ function Slider({slides, autoPlay}: Props) {
 
 
             {/*좌우이동 화살표 및 함수 추가*/}
-            <Arrow direction="left" handleClick={prevSlide} />
-            <Arrow direction="right" handleClick={nextSlide} />
+            {/*<Arrow direction="left" handleClick={prevSlide} />*/}
+            {/*<Arrow direction="right" handleClick={nextSlide} />*/}
 
             {/*Dots*/}
             <Dots slides={slides} activeSlide={activeSlide} handleClick={handleClick} />

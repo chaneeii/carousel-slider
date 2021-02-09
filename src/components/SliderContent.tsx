@@ -13,11 +13,13 @@ interface Props {
     transition: number;
     width: number;
     children: React.ReactNode;
+    onTouchStart: (e: React.TouchEvent) => void;
+    onTouchMove: (e: React.TouchEvent) => void;
 }
 
-function SliderContent({translate, transition, width, children}: Props) {
+function SliderContent({translate, transition, width, children,onTouchStart, onTouchMove}: Props) {
     return(
-        <SliderContentContainer translateProp={translate} transition={transition} width={width}>
+        <SliderContentContainer translateProp={translate} transition={transition} width={width} onTouchStart={onTouchStart} onTouchMove={onTouchMove}>
             {children}
         </SliderContentContainer>
     )
