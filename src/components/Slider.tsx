@@ -15,9 +15,7 @@ const S = {
       width: 100vw;
       margin: 0 auto;
       overflow: hidden;
-      
     `
-
 
 }
 
@@ -40,6 +38,7 @@ function Slider({slides, autoPlay}: Props) {
 
     /* Swipe - touch for mobile devices */
     // const [touchPosition, setTouchPosition] = useState(null)
+
     const [touchPosition, setTouchPosition] = useState(0)
 
 
@@ -90,8 +89,6 @@ function Slider({slides, autoPlay}: Props) {
         // setTouchPosition(null)
         setTouchPosition(0)
     }
-
-
 
 
 

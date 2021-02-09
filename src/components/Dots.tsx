@@ -13,12 +13,14 @@ const S = {
       justify-content: center;
     `,
     SingleDot: styled.span<{active: boolean}>`
-      padding: 10px;
+      padding: 7px;
       margin-right: 5px;
       cursor: pointer;
-      border-radius: 50%;
-      background: ${({active})=> active ? 'black' : 'white'}
+      border-radius: ${({active})=> active ? '40px' : '50%'};
+      background: ${({active})=> active ? '#1672f7' : '#C4C9D1'};
+      width: ${({active})=> active ? '14px' : ''};
     `
+
 }
 
 interface Props {
