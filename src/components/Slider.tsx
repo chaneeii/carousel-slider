@@ -125,7 +125,7 @@ function Slider({slides, autoPlay, infiniteLoop}: Props) {
                 translate: (activeSlide + 1) * getWidth(),
                 // transition: 0.45,
                 transition: 0.6,
-                autoPlaySpeed: 0.28
+                autoPlaySpeed: 0.26
             })
 
         }
