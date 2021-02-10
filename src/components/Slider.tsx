@@ -34,7 +34,7 @@ function Slider({slides, autoPlay, infiniteLoop}: Props) {
     const [state, setState] = useState({
         activeSlide: 0,
         translate: 0,
-        transition: 0.45,
+        transition: 0.25,
         autoPlaySpeed: autoPlay
     })
 
@@ -123,9 +123,10 @@ function Slider({slides, autoPlay, infiniteLoop}: Props) {
                 ...state,
                 activeSlide: activeSlide + 1,
                 translate: (activeSlide + 1) * getWidth(),
-                // transition: 0.45,
-                transition: 0.6,
-                autoPlaySpeed: 0.26
+                transition: 0.25,
+                // transition: 0.6,
+                // autoPlaySpeed: 0.15
+                autoPlaySpeed: 0.25
             })
 
         }
@@ -140,11 +141,21 @@ function Slider({slides, autoPlay, infiniteLoop}: Props) {
             })
         }
 
+        // if(activeSlide === 0) {
+        //     return setState({
+        //         ...state,
+        //         activeSlide: activeSlide + 1,
+        //         translate: (activeSlide + 1) * getWidth(),
+        //         transition: 0.25,
+        //         autoPlaySpeed: autoPlay
+        //     })
+        // }
+
         setState({
             ...state,
             activeSlide: activeSlide + 1,
             translate: (activeSlide + 1) * getWidth(),
-            transition: 0.45
+            transition: 0.25
         })
 
 
