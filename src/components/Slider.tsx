@@ -126,7 +126,7 @@ function Slider({slides, autoPlay, infiniteLoop}: Props) {
                 transition: 0.25,
                 // transition: 0.6,
                 // autoPlaySpeed: 0.15
-                autoPlaySpeed: 0.25
+                autoPlaySpeed: 0.175
             })
 
         }
